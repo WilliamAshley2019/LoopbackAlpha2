@@ -26,10 +26,13 @@ removed dc offset.
 Also it not only works on the same so routing loopback on the same mixer track, but also a child to parent via the generator with senderella at any insert point.
 
 Future to add - clear loopback buffer button needed. 
-Exactly how to handle the buffer is not fully decided on however the next version is set to included
+Exactly how to handle the buffer is not fully decided on however the next version is set to include.
+
 Common Buffer Management Scenarios:
 
 Clear Buffer - Wipe everything, start fresh (useful after experimenting)
 Fade Out - Gradually reduce buffer content (smooth stop for feedback loops)
 Freeze - Stop writing but keep playing what's there (capture a loop)
-Auto-clear on Stop - Clear when transport stops (clean slate each playback)
+Auto-clear on Stop - Clear when transport playback stops
+
+Since people may have different uses - however the question still remains how to specifically implement it for rendered playback as live looping is a different issue from automated looping where reseting isn't an option I may need to add midi triggering so midi notes can control the buffer modes.
