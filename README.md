@@ -21,3 +21,8 @@ VST3 license https://steinbergmedia.github.io/vst3_dev_portal/pages/VST+3+Licens
 
 This version is much more smoothed and less grainy due to different handlign of the sampling and removal of the DC offset (may not be reflected in the vst yet as it hasn't been built with the
 removed dc offset. 
+
+
+Also it not only works on the same so routing loopback on the same mixer track, but also a child to parent via the generator with senderella at any insert point.
+
+Future to add - clear loopback buffer button needed. 
