@@ -1,3 +1,5 @@
+
+
 Basic Plugin - one is built as an effect the other as instrument. Common manufacturer ID and Different Plugin ID was used intially due to earlier attempt to use shared instance memory but it didn't work so windows shared memory was used instead.
 
 HOW IT WORKS
@@ -30,9 +32,12 @@ Exactly how to handle the buffer is not fully decided on however the next versio
 
 Common Buffer Management Scenarios:
 
-Clear Buffer - Wipe everything, start fresh (useful after experimenting)
-Fade Out - Gradually reduce buffer content (smooth stop for feedback loops)
-Freeze - Stop writing but keep playing what's there (capture a loop)
-Auto-clear on Stop - Clear when transport playback stops
+Clear Buffer - Wipe everything, start fresh (useful after experimenting)  DONE
+Fade Out - Gradually reduce buffer content (smooth stop for feedback loops) Basic implementation may require multiple button presses this likely needs to be refined more as it doesn't cause full fadeout during playback.
+Freeze - Stop writing but keep playing what's there (capture a loop)  (Stop does seem to work but it keeps the buffer going but does not build the buffer)
+Auto-clear on Stop - Clear when transport playback stops  (NOT DONE likely due to isplaying not being fully implemented)
 
+Edit 2025-11-29 I have moved the old version of LoopbackAlpha2 to the Old folder. Changes were adding some buffer control.  However there does appear to be more common clicking in the current version that I don't remember from the last one however a little more buffer control. Future plans to potentially ad some way of controlling the buffer types via midi as currently 
+plugin is more of a real time thing and not so sure if button presses will be automable without midi triggers via piano rolli in the generator. The major processor issue ATM is removing 
+the clicking likely due to something with the samples being non smoothed need to look into it more
 Since people may have different uses - however the question still remains how to specifically implement it for rendered playback as live looping is a different issue from automated looping where reseting isn't an option I may need to add midi triggering so midi notes can control the buffer modes.
