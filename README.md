@@ -45,3 +45,4 @@ Since people may have different uses - however the question still remains how to
 
 
 TO DO: adjust the cycle length knob to add to change the time it takes to cycle the loopback.
+So the loopback cycle length knob/setting will be provided in the next version LoopbackAlpha3. It still needs to be tested.  Hopefully tomorrow.  
