@@ -161,6 +161,53 @@ public:
             sharedBuffer->config.smoothingAmount.store(juce::jlimit(0.0f, 0.99f, amount), std::memory_order_relaxed);
     }
 
+    // Buffer management functions
+    void clearBuffer() noexcept
+    {
+        if (!sharedBuffer) return;
+
+        // Clear all audio data
+        for (int i = 0; i < SharedRingBuffer::bufferSizeSamples; ++i)
+        {
+            sharedBuffer->leftChannel[i] = 0.0f;
+            sharedBuffer->rightChannel[i] = 0.0f;
+        }
+
+        // Reset read/write positions
+        sharedBuffer->writePos.store(0, std::memory_order_release);
+        sharedBuffer->readPos.store(0, std::memory_order_release);
+    }
+
+    void fadeOutBuffer(float fadeTimeMs, double sampleRate) noexcept
+    {
+        if (!sharedBuffer) return;
+
+        const int mask = SharedRingBuffer::bufferSizeSamples - 1;
+        int writeIndex = sharedBuffer->writePos.load(std::memory_order_acquire);
+        int readIndex = sharedBuffer->readPos.load(std::memory_order_acquire);
+
+        int available = (writeIndex - readIndex) & mask;
+        int fadeSamples = static_cast<int>((fadeTimeMs / 1000.0f) * sampleRate);
+        fadeSamples = juce::jmin(fadeSamples, available);
+
+        // Apply fade to existing content
+        for (int i = 0; i < fadeSamples; ++i)
+        {
+            int idx = (readIndex + i) & mask;
+            float gain = 1.0f - (static_cast<float>(i) / fadeSamples);
+            sharedBuffer->leftChannel[idx] *= gain;
+            sharedBuffer->rightChannel[idx] *= gain;
+        }
+
+        // Clear remaining samples
+        for (int i = fadeSamples; i < available; ++i)
+        {
+            int idx = (readIndex + i) & mask;
+            sharedBuffer->leftChannel[idx] = 0.0f;
+            sharedBuffer->rightChannel[idx] = 0.0f;
+        }
+    }
+
     int getNumAvailable() const noexcept
     {
         if (!sharedBuffer) return 0;

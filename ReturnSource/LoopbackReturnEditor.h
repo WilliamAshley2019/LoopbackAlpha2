@@ -28,6 +28,8 @@ private:
 
     juce::ToggleButton antiFeedbackButton;
     juce::TextButton stopButton;
+    juce::TextButton clearButton;      // ✅ NEW
+    juce::TextButton fadeOutButton;    // ✅ NEW
 
     int bufferLevel = 0;
     int64_t writeCount = 0;

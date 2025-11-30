@@ -3,7 +3,7 @@
 LoopbackReturnAudioProcessorEditor::LoopbackReturnAudioProcessorEditor(LoopbackReturnAudioProcessor& p)
     : AudioProcessorEditor(&p), audioProcessor(p)
 {
-    setSize(500, 350);
+    setSize(500, 380); // ✅ Slightly taller for new buttons
 
     // Buffer Length Slider
     bufferLengthSlider.setSliderStyle(juce::Slider::RotaryVerticalDrag);
@@ -42,6 +42,18 @@ LoopbackReturnAudioProcessorEditor::LoopbackReturnAudioProcessorEditor(LoopbackR
     stopButton.setColour(juce::TextButton::buttonColourId, juce::Colours::red);
     stopButton.addListener(this);
     addAndMakeVisible(stopButton);
+
+    // ✅ NEW: Clear Buffer Button
+    clearButton.setButtonText("CLEAR");
+    clearButton.setColour(juce::TextButton::buttonColourId, juce::Colours::orange);
+    clearButton.addListener(this);
+    addAndMakeVisible(clearButton);
+
+    // ✅ NEW: Fade Out Button
+    fadeOutButton.setButtonText("FADE OUT");
+    fadeOutButton.setColour(juce::TextButton::buttonColourId, juce::Colours::blue);
+    fadeOutButton.addListener(this);
+    addAndMakeVisible(fadeOutButton);
 
     startTimerHz(30);
 }
@@ -98,6 +110,16 @@ void LoopbackReturnAudioProcessorEditor::buttonClicked(juce::Button* button)
         stopButton.setColour(juce::TextButton::buttonColourId,
             newState ? juce::Colours::green : juce::Colours::red);
     }
+    // ✅ NEW: Clear buffer instantly
+    else if (button == &clearButton)
+    {
+        LoopbackShared::getInstance().clearBuffer();
+    }
+    // ✅ NEW: Fade out over 500ms
+    else if (button == &fadeOutButton)
+    {
+        LoopbackShared::getInstance().fadeOutBuffer(500.0f, audioProcessor.getSampleRate());
+    }
 }
 
 void LoopbackReturnAudioProcessorEditor::paint(juce::Graphics& g)
@@ -117,23 +139,23 @@ void LoopbackReturnAudioProcessorEditor::paint(juce::Graphics& g)
 
     // Buffer level visualization
     g.setColour(juce::Colours::darkgrey);
-    g.fillRect(20, 250, getWidth() - 40, 30);
+    g.fillRect(20, 280, getWidth() - 40, 30); // ✅ Moved down
 
     float fillRatio = juce::jmin(1.0f, bufferLevel / 88200.0f);
     g.setColour(juce::Colours::lime.withAlpha(0.8f));
-    g.fillRect(20, 250, static_cast<int>((getWidth() - 40) * fillRatio), 30);
+    g.fillRect(20, 280, static_cast<int>((getWidth() - 40) * fillRatio), 30);
 
     g.setColour(juce::Colours::white);
     g.setFont(12.0f);
     g.drawText("Buffer: " + juce::String(bufferLevel) + " samples",
-        20, 285, getWidth() - 40, 20, juce::Justification::centred);
+        20, 315, getWidth() - 40, 20, juce::Justification::centred);
 
     // Statistics
     g.setFont(11.0f);
     g.drawText("Written: " + juce::String(writeCount),
-        20, 310, (getWidth() - 40) / 2, 20, juce::Justification::left);
+        20, 340, (getWidth() - 40) / 2, 20, juce::Justification::left);
     g.drawText("Read: " + juce::String(readCount),
-        getWidth() / 2, 310, (getWidth() - 40) / 2, 20, juce::Justification::right);
+        getWidth() / 2, 340, (getWidth() - 40) / 2, 20, juce::Justification::right);
 }
 
 void LoopbackReturnAudioProcessorEditor::resized()
@@ -147,6 +169,12 @@ void LoopbackReturnAudioProcessorEditor::resized()
     feedbackSlider.setBounds(getWidth() - 150, knobY, knobSize, knobSize);
     feedbackLabel.setBounds(getWidth() - 150, knobY + knobSize + 5, knobSize, 20);
 
-    antiFeedbackButton.setBounds(200, 100, 120, 30);
-    stopButton.setBounds(200, 140, 120, 40);
+    // Center column of buttons
+    int buttonX = 190;
+    int buttonWidth = 120;
+
+    antiFeedbackButton.setBounds(buttonX, 90, buttonWidth, 30);
+    stopButton.setBounds(buttonX, 130, buttonWidth, 35);
+    clearButton.setBounds(buttonX, 175, buttonWidth, 35);      // ✅ NEW
+    fadeOutButton.setBounds(buttonX, 220, buttonWidth, 35);   // ✅ NEW
 }
