@@ -41,3 +41,7 @@ Edit 2025-11-29 I have moved the old version of LoopbackAlpha2 to the Old folder
 plugin is more of a real time thing and not so sure if button presses will be automable without midi triggers via piano rolli in the generator. The major processor issue ATM is removing 
 the clicking likely due to something with the samples being non smoothed need to look into it more
 Since people may have different uses - however the question still remains how to specifically implement it for rendered playback as live looping is a different issue from automated looping where reseting isn't an option I may need to add midi triggering so midi notes can control the buffer modes.
+
+
+
+TO DO: adjust the cycle length knob to add to change the time it takes to cycle the loopback.
