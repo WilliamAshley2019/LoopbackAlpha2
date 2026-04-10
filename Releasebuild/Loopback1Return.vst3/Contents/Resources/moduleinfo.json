@@ -1,0 +1,48 @@
+{
+  "Name": "Loopback1Return",
+  "Version": "1.0.0",
+  "Factory Info": {
+    "Vendor": "yourcompany",
+    "URL": "www.yourcompany.com",
+    "E-Mail": "",
+    "Flags": {
+      "Unicode": true,
+      "Classes Discardable": false,
+      "Component Non Discardable": false,
+    },
+  },
+  "Classes": [
+    {
+      "CID": "ABCDEF019182FAEB4D616E754F377676",
+      "Category": "Audio Module Class",
+      "Name": "Loopback1Return",
+      "Vendor": "yourcompany",
+      "Version": "1.0.0",
+      "SDKVersion": "VST 3.8.0",
+      "Sub Categories": [
+        "Instrument",
+        "Synth",
+      ],
+      "Class Flags": 2,
+      "Cardinality": 2147483647,
+      "Snapshots": [
+      ],
+    },
+    {
+      "CID": "ABCDEF011234ABCD4D616E754F377676",
+      "Category": "Component Controller Class",
+      "Name": "Loopback1Return",
+      "Vendor": "yourcompany",
+      "Version": "1.0.0",
+      "SDKVersion": "VST 3.8.0",
+      "Sub Categories": [
+        "Instrument",
+        "Synth",
+      ],
+      "Class Flags": 2,
+      "Cardinality": 2147483647,
+      "Snapshots": [
+      ],
+    },
+  ],
+}
