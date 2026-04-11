@@ -1,4 +1,4 @@
-
+I uploaded a release build so I think it will be usable without visual studio ms runtimes. It "should" run now on its own as long as you run fl studio as administrator "run as administrator" so the program has access to windows shared global memory. This was my lazy approach to bypassing fl studio's internal audio buffer that would prevent linking back audio to itself (runaway feedback creation in mixer)
 
 Basic Plugin - one is built as an effect the other as instrument. Common manufacturer ID and Different Plugin ID was used intially due to earlier attempt to use shared instance memory but it didn't work so windows shared memory was used instead.
 
