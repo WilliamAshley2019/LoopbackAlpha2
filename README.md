@@ -1,3 +1,24 @@
+********** IT IS ESSENTIAL YOU READ HOW TO USE THIS AS IT IS NOT NORMAL *******************
+This version requires you to load FL Studio or whatever DAW run as administrator  because it uses Windows Global Memory AFAIK only accessable when you run a program in administrator mode - another version of this plugin is planned but I've been too lazy to build / test it so far. This is a highly 
+experimental plugin - the buffer stuff needs to be fine tuned likely to be very usable.... this is not a production ready plugin!!!! BE ADVISED!!!!
+--------------------------------------------------------------------------------------------------
+Copyright (c) 2026 William Ashley d/b/a William Ashley Music ( http://WilliamAshley.music )
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License  (v3) 
+
+This program is distributed in the hope that it will be useful to other audio programmers and music makers in their own plugin designs.
+There is no WARRANTY expressed or implied including for MERCHANTABILITY or FITNESS FOR ANY PURPOSE. 
+See the GNU General Public License for more details.
+
+Attributtion is requested where possible if you use or modify any of the source,
+Notice of use is requested so I can familiarize myself with how the code has been adapted for personal interest.
+contact@WilliamAshley.music   
+-----------------------------------------------------------------------------------------------------
+[![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
+[![JUCE](https://img.shields.io/badge/Built%20with-JUCE%208.0.12-blue)](https://juce.com)
+[![Platform](https://img.shields.io/badge/Platform-Windows%20%7C%20-lightgrey)]()
+[![Format](https://img.shields.io/badge/Format-VST3%20%7C%20-orange)]()
+
 I uploaded a release build so I think it will be usable without visual studio ms runtimes. It "should" run now on its own as long as you run fl studio as administrator "run as administrator" so the program has access to windows shared global memory. This was my lazy approach to bypassing fl studio's internal audio buffer that would prevent linking back audio to itself (runaway feedback creation in mixer)
 
 Basic Plugin - one is built as an effect the other as instrument. Common manufacturer ID and Different Plugin ID was used intially due to earlier attempt to use shared instance memory but it didn't work so windows shared memory was used instead.
